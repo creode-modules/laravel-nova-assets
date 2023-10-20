@@ -2,9 +2,9 @@
 
 namespace Creode\LaravelNovaAssets;
 
+use Creode\LaravelNovaAssets\Commands\LaravelNovaAssetsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Creode\LaravelNovaAssets\Commands\LaravelNovaAssetsCommand;
 
 class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
 {
