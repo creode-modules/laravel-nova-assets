@@ -68,7 +68,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Creode](https://github.com/creode-modules)
+- [Creode](https://github.com/creode)
 - [All Contributors](../../contributors)
 
 ## License
