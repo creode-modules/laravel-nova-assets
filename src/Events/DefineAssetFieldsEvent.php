@@ -2,8 +2,8 @@
 
 namespace Creode\LaravelNovaAssets\Events;
 
-use Laravel\Nova\Fields\Field;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Laravel\Nova\Fields\Field;
 
 class DefineAssetFieldsEvent
 {
@@ -12,7 +12,7 @@ class DefineAssetFieldsEvent
     /**
      * Array of Nova Fields.
      *
-     * @param Field[] $fields
+     * @param  Field[]  $fields
      */
     public function __construct(public array $fields)
     {
