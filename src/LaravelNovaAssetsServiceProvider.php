@@ -2,12 +2,20 @@
 
 namespace Creode\LaravelNovaAssets;
 
-use Creode\LaravelNovaAssets\Commands\LaravelNovaAssetsCommand;
+use Laravel\Nova\Nova;
 use Spatie\LaravelPackageTools\Package;
+use Creode\LaravelNovaAssets\Nova\AssetResource;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
 {
+    public function boot()
+    {
+        Nova::resources([
+            AssetResource::class,
+        ]);
+    }
+
     public function configurePackage(Package $package): void
     {
         /*
@@ -17,9 +25,6 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-nova-assets')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-nova-assets_table')
-            ->hasCommand(LaravelNovaAssetsCommand::class);
+            ->hasConfigFile();
     }
 }
