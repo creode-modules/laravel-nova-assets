@@ -2,9 +2,9 @@
 
 namespace Creode\LaravelNovaAssets\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Creode\LaravelNovaAssets\LaravelNovaAssetsServiceProvider;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
@@ -47,28 +47,28 @@ class TestCase extends Orchestra
             'database',
             'migrations',
         ]);
-        $migration = include $assetMigrationPath . 'create_assets_table.php.stub';
+        $migration = include $assetMigrationPath.'create_assets_table.php.stub';
         $migration->up();
     }
 
     /**
      * Adds to the assets table.
      */
-    protected function addFolderIdToAssetsTable() {
+    protected function addFolderIdToAssetsTable()
+    {
         // Register migration for adding folder_id field.
         $folderIdMigrationPath = $this->generateFolderPath([
             __DIR__,
             'database',
             'migrations',
         ]);
-        $migration = include $folderIdMigrationPath . 'add_asset_folder_field.php';
+        $migration = include $folderIdMigrationPath.'add_asset_folder_field.php';
         $migration->up();
     }
 
     /**
      * Generate a path from an array of folders.
      *
-     * @param array $folders
      * @return string The path.
      */
     private function generateFolderPath(array $folders): string
@@ -76,7 +76,7 @@ class TestCase extends Orchestra
         $path = '';
 
         foreach ($folders as $folder) {
-            $path .= $folder . DIRECTORY_SEPARATOR;
+            $path .= $folder.DIRECTORY_SEPARATOR;
         }
 
         return $path;

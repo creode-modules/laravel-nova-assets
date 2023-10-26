@@ -2,9 +2,9 @@
 
 namespace Creode\LaravelNovaAssets;
 
+use Creode\LaravelNovaAssets\Nova\AssetResource;
 use Laravel\Nova\Nova;
 use Spatie\LaravelPackageTools\Package;
-use Creode\LaravelNovaAssets\Nova\AssetResource;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
