@@ -8,12 +8,8 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('laravel_nova_assets_table', function (Blueprint $table) {
-            $table->id();
-
-            // add fields
-
-            $table->timestamps();
+        Schema::table('assets', function (Blueprint $table) {
+            $table->unsignedBigInteger('folder_id')->nullable()->after('id');
         });
     }
 };
