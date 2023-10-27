@@ -9,7 +9,8 @@ return [
         Filepond::make('Assets', 'location')
             ->rules('required')
             ->multiple()
-            ->mimesTypes(['image/*']),
+            ->mimesTypes(['image/*'])
+            ->default(fn() => []),
     ],
     'default_actions' => [
         BulkAssetUploadAction::make()->standalone(),
