@@ -26,7 +26,6 @@ class TestAction extends Action
      */
     public function handle()
     {
-
     }
 
     /**
