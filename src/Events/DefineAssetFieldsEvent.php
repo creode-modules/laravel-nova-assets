@@ -14,7 +14,7 @@ class DefineAssetFieldsEvent
      *
      * @param  Field[]  $fields
      */
-    public function __construct(public array $fields)
+    public function __construct(public array $fields = [])
     {
     }
 }

@@ -2,12 +2,11 @@
 
 namespace Creode\LaravelNovaAssets\Nova;
 
-use Creode\LaravelAssets\Models\Asset;
-use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
-use Laravel\Nova\Fields\File;
-use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
+use Creode\LaravelAssets\Models\Asset;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
+use Creode\LaravelNovaAssets\Events\DefineAssetActionsEvent;
 
 class AssetResource extends Resource
 {
@@ -41,13 +40,8 @@ class AssetResource extends Resource
      */
     public function fields(NovaRequest $request)
     {
-        $defaultFields = [
-            ID::make()->sortable(),
-            File::make('Asset', 'location'),
-        ];
-
         // Trigger an event for adding fields.
-        $event = new DefineAssetFieldsEvent($defaultFields);
+        $event = new DefineAssetFieldsEvent(config('nova-assets.default_fields', []));
         event($event);
 
         return $event->fields;
@@ -90,6 +84,10 @@ class AssetResource extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        // Trigger an event for adding fields.
+        $event = new DefineAssetActionsEvent(config('nova-assets.default_actions', []));
+        event($event);
+
+        return $event->actions;
     }
 }
