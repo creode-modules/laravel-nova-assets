@@ -10,7 +10,7 @@ return [
             ->rules('required')
             ->multiple()
             ->mimesTypes(['image/*'])
-            ->default(fn() => []),
+            ->default(fn () => []),
     ],
     'default_actions' => [
         BulkAssetUploadAction::make()->standalone(),
