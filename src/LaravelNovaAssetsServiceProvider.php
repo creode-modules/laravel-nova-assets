@@ -11,6 +11,8 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
 {
     public function boot()
     {
+        parent::boot();
+
         Nova::resources([
             AssetResource::class,
         ]);
