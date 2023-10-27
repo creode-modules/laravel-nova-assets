@@ -80,7 +80,6 @@
                 "Creode\\LaravelNovaAssets\\LaravelNovaAssetsServiceProvider"
             ],
             "aliases": {
-                "LaravelNovaAssets": "Creode\\LaravelNovaAssets\\Facades\\LaravelNovaAssets"
             }
         }
     },
