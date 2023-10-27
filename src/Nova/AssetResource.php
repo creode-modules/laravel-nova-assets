@@ -2,11 +2,11 @@
 
 namespace Creode\LaravelNovaAssets\Nova;
 
-use Laravel\Nova\Resource;
 use Creode\LaravelAssets\Models\Asset;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
 use Creode\LaravelNovaAssets\Events\DefineAssetActionsEvent;
+use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Resource;
 
 class AssetResource extends Resource
 {

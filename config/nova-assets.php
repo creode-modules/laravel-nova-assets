@@ -1,7 +1,7 @@
 <?php
 
-use DigitalCreative\Filepond\Filepond;
 use Creode\LaravelNovaAssets\Nova\Actions\BulkAssetUploadAction;
+use DigitalCreative\Filepond\Filepond;
 
 // config for Creode/LaravelNovaAssets
 return [

@@ -26,13 +26,12 @@ class TestAction extends Action
      */
     public function handle()
     {
-        return;
+
     }
 
     /**
      * Get the fields available on the action.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
     public function fields(NovaRequest $request)
