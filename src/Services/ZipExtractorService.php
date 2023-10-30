@@ -2,8 +2,6 @@
 
 namespace Creode\LaravelNovaAssets\Services;
 
-use DigitalCreative\Filepond\Data\Data;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class ZipExtractorService
@@ -11,8 +9,7 @@ class ZipExtractorService
     /**
      * Extracts the contents of a zip file into a single folder, collapsing the folder structure.
      *
-     * @param string $zipPath Path to the zip file.
-     *
+     * @param  string  $zipPath Path to the zip file.
      * @return array Array of extracted filepaths.
      */
     public function extractToCollapsedFolder($zipPath)
@@ -26,24 +23,24 @@ class ZipExtractorService
                 $fileinfo = pathinfo($filename);
 
                 // Check if the file is valid.
-                if (!$this->isValidFile($fileinfo)) {
+                if (! $this->isValidFile($fileinfo)) {
                     continue;
                 }
 
                 // Handle duplicate filenames.
                 $filePath = $fileinfo['basename'];
                 if (Storage::disk(config('assets.disk'))->exists($fileinfo['basename'])) {
-                    $filePath = $fileinfo['filename'] . '-' . time() . '.' . $fileinfo['extension'];
+                    $filePath = $fileinfo['filename'].'-'.time().'.'.$fileinfo['extension'];
                 }
 
                 // Save file and add to list of files.
                 $success = copy(
-                    "zip://" . $zipPath . "#" . $filename,
+                    'zip://'.$zipPath.'#'.$filename,
                     Storage::disk(config('assets.disk'))->path($filePath)
                 );
 
-                if (!$success) {
-                    throw new \Exception("Failed to copy file from zip.");
+                if (! $success) {
+                    throw new \Exception('Failed to copy file from zip.');
                 }
                 $extractedFilePaths[] = Storage::disk(config('assets.disk'))->path($filePath);
             }
@@ -56,8 +53,7 @@ class ZipExtractorService
     /**
      * Filters out any files we don't allow.
      *
-     * @param string|array{dirname:string, basename:string, extension:string, filename:string} $fileinfo
-     *
+     * @param  string|array{dirname:string, basename:string, extension:string, filename:string}  $fileinfo
      * @return bool True if file is valid, false if not.
      */
     public function isValidFile($fileinfo)
@@ -68,7 +64,7 @@ class ZipExtractorService
         }
 
         // If file extension isn't in the accepted list, then ignore it.
-        if (!in_array($fileinfo['extension'], config('nova-assets.accepted_zip_file_extensions'))) {
+        if (! in_array($fileinfo['extension'], config('nova-assets.accepted_zip_file_extensions'))) {
             return false;
         }
 

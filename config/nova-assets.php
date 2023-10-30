@@ -1,9 +1,9 @@
 <?php
 
+use Creode\LaravelNovaAssets\Nova\Actions\BulkAssetUploadAction;
 use DigitalCreative\Filepond\Filepond;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Creode\LaravelNovaAssets\Nova\Actions\BulkAssetUploadAction;
 
 // config for Creode/LaravelNovaAssets
 return [
@@ -47,7 +47,7 @@ return [
         Filepond::make('Assets', 'location', config('assets.disk', 'public'))
             ->rules('required')
             ->multiple()
-            ->mimesTypes(['image/*', 'application/zip', 'zip', 'application/pdf'])
+            ->mimesTypes(['image/*', 'application/zip', 'zip', 'application/pdf']),
     ],
 
     /*

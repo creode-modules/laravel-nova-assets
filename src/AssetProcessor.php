@@ -2,8 +2,8 @@
 
 namespace Creode\LaravelNovaAssets;
 
-use Illuminate\Support\Facades\Facade;
 use Creode\LaravelNovaAssets\Processors\FilepondProcessor;
+use Illuminate\Support\Facades\Facade;
 
 // @method array process()
 class AssetProcessor extends Facade

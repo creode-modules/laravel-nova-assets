@@ -2,26 +2,22 @@
 
 namespace Creode\LaravelNovaAssets\Jobs;
 
+use Creode\LaravelNovaAssets\Services\AssetService;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
-use Creode\LaravelAssets\Models\Asset;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Creode\LaravelNovaAssets\Services\AssetService;
-use Creode\LaravelNovaAssets\Services\ZipExtractorService;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class AssetUploadJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Batchable;
+    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
      *
-     * @param array $fieldData
+     * @param  array  $fieldData
      */
     public function __construct(public array $assetField, public array $additionalFieldData = [])
     {

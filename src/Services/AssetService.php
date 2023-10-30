@@ -2,18 +2,17 @@
 
 namespace Creode\LaravelNovaAssets\Services;
 
-use Illuminate\Support\Str;
 use Creode\LaravelAssets\Models\Asset;
-use Illuminate\Support\Facades\Storage;
 use Creode\LaravelNovaAssets\Helpers\UploadAsset;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AssetService
 {
     /**
      * Takes in required parameters and creates an asset.
      *
-     * @param UploadAsset $asset
-     * @param array $fields
+     * @param  UploadAsset  $asset
      * @return \Creode\LaravelAssets\Models\Asset
      */
     public function createAsset(UploadAsset $uploadAsset, array $fields)
@@ -37,7 +36,7 @@ class AssetService
      * Moves the uploaded file to a location in-line with existing Filepond functionality.
      * Generates an uploaded asset type that can be used to create an asset.
      *
-     * @param string $filePath Full path to the uploaded file.
+     * @param  string  $filePath Full path to the uploaded file.
      * @return UploadAsset
      */
     public function moveUploadedFile($filePath)
@@ -46,7 +45,7 @@ class AssetService
         $fileInfo = pathinfo($filePath);
 
         $newFilename = Str::random();
-        $locationPath = $newFilename . '.' . $fileInfo['extension'];
+        $locationPath = $newFilename.'.'.$fileInfo['extension'];
 
         $oldPath = str_replace(
             Storage::disk(
@@ -62,7 +61,7 @@ class AssetService
             $locationPath
         );
 
-        if (!$moved) {
+        if (! $moved) {
             throw new \Exception('Couldn\'t move file');
         }
 

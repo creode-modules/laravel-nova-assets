@@ -2,19 +2,18 @@
 
 namespace Creode\LaravelNovaAssets\Nova\Actions;
 
-use Illuminate\Bus\Batch;
-use Illuminate\Bus\Queueable;
-use Laravel\Nova\Actions\Action;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\Auth;
-use Laravel\Nova\Fields\ActionFields;
-use Illuminate\Queue\InteractsWithQueue;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Creode\LaravelNovaAssets\AssetProcessor;
 use Creode\LaravelNovaAssets\Jobs\AssetUploadJob;
-use Creode\LaravelNovaAssets\Notifications\BulkAssetUploadNotification;
 use Creode\LaravelNovaAssets\Jobs\ProcessArchiveJob;
+use Illuminate\Bus\Batch;
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Bus;
+use Laravel\Nova\Actions\Action;
+use Laravel\Nova\Fields\ActionFields;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class BulkAssetUploadAction extends Action
 {
@@ -41,6 +40,7 @@ class BulkAssetUploadAction extends Action
             if ($assetField['type'] == 'application/zip' || $assetField['type'] == 'zip') {
                 // If it's a zip, then run a ProcessArchiveJob.
                 $jobsToProcess[] = new ProcessArchiveJob(Auth::user(), $assetField, $fields->toArray());
+
                 continue;
             }
 

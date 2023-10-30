@@ -2,27 +2,27 @@
 
 namespace Creode\LaravelNovaAssets\Jobs;
 
-use Throwable;
-use Illuminate\Bus\Batchable;
-use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Creode\LaravelNovaAssets\Notifications\BulkAssetUploadFailedNotification;
 use Creode\LaravelNovaAssets\Services\AssetService;
 use Creode\LaravelNovaAssets\Services\ZipExtractorService;
-use Creode\LaravelNovaAssets\Notifications\BulkAssetUploadFailedNotification;
+use Illuminate\Bus\Batchable;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class ProcessArchiveJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Batchable;
+    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
      *
-     * @param array $fieldData
+     * @param  array  $fieldData
      */
     public function __construct(protected Authenticatable $userToNotify, public array $assetField, public array $additionalFieldData = [])
     {
