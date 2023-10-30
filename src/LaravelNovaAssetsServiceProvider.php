@@ -11,6 +11,8 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
 {
     public function boot()
     {
+        parent::boot();
+
         Nova::resources([
             AssetResource::class,
         ]);
@@ -25,6 +27,8 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-nova-assets')
-            ->hasConfigFile();
+            ->hasConfigFile()
+            ->hasMigration('add_filepond_fields')
+            ->runsMigrations();
     }
 }
