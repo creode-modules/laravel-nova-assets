@@ -37,7 +37,8 @@ return [
         BulkAssetUploadAction::make()->standalone()
             ->confirmButtonText('Upload')
             ->confirmText('Are you sure you want to upload these assets?')
-            ->cancelButtonText('Cancel'),
+            ->cancelButtonText('Cancel')
+            ->onlyOnIndex(),
     ],
 
     /*
