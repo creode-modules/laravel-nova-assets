@@ -31,27 +31,34 @@ use Creode\LaravelNovaAssets\Nova\Actions\BulkAssetUploadAction;
 
 // config for Creode/LaravelNovaAssets
 return [
-    'default_fields' => [
-        Filepond::make('Assets', 'location', config('assets.disk', 'public'))
-            ->rules('required')
-            ->mimesTypes(['image/*', 'application/pdf'])
-            ->displayUsing(function ($value) {
-                return '<img src="https://picsum.photos/200/300" alt="Image" />';
-            })
-            ->store(function (NovaRequest $request, Model $model, string $attribute): array {
-                return [
-                    $attribute => $request->location->store('/', ['disk' => config('assets.disk', 'public')]),
-                    'name' => $request->location->getClientOriginalName(),
-                    'size' => $request->location->getSize(),
-                ];
-            }),
-    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Bulk Fields
+    |--------------------------------------------------------------------------
+    |
+    | This value contains the default bulk fields which will be rendered when
+    | doing a bulk upload. You can add or remove fields as you wish.
+    |
+    */
+
     'default_bulk_fields' => [
         Filepond::make('Assets', 'location', config('assets.disk', 'public'))
             ->rules('required')
             ->multiple()
             ->mimesTypes(['image/*', 'application/zip', 'zip', 'application/pdf'])
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Actions
+    |--------------------------------------------------------------------------
+    |
+    | This value contains the default actions which will be used when we managing
+    | an asset resource. You can add or remove actions as you wish.
+    |
+    */
+
     'default_actions' => [
         BulkAssetUploadAction::make()->standalone()
             ->onlyOnIndex()

@@ -2,11 +2,13 @@
 
 namespace Creode\LaravelNovaAssets\Nova;
 
-use Creode\LaravelAssets\Models\Asset;
-use Creode\LaravelNovaAssets\Events\DefineAssetActionsEvent;
-use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
+use Creode\LaravelAssets\Models\Asset;
+use DigitalCreative\Filepond\Filepond;
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
+use Creode\LaravelNovaAssets\Events\DefineAssetActionsEvent;
 
 class AssetResource extends Resource
 {
@@ -40,8 +42,24 @@ class AssetResource extends Resource
      */
     public function fields(NovaRequest $request)
     {
+        $defaultFields = [
+            Filepond::make('Assets', 'location', config('assets.disk', 'public'))
+                ->rules('required')
+                ->mimesTypes(['image/*', 'application/pdf'])
+                ->displayUsing(function ($value) {
+                    return '<img src="https://picsum.photos/200/300" alt="Image" />';
+                })
+                ->store(function (NovaRequest $request, Model $model, string $attribute): array {
+                    return [
+                        $attribute => $request->location->store('/', ['disk' => config('assets.disk', 'public')]),
+                        'name' => $request->location->getClientOriginalName(),
+                        'size' => $request->location->getSize(),
+                    ];
+                }),
+        ];
+
         // Trigger an event for adding fields.
-        $event = new DefineAssetFieldsEvent(config('nova-assets.default_fields', []));
+        $event = new DefineAssetFieldsEvent($defaultFields);
         event($event);
 
         return $event->fields;
