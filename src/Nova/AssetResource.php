@@ -36,6 +36,16 @@ class AssetResource extends Resource
     ];
 
     /**
+     * Overwrites name (label) of resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return 'Assets';
+    }
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @return array
