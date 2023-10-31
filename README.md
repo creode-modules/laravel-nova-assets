@@ -24,23 +24,45 @@ php artisan vendor:publish --tag="nova-assets-config"
 This is the contents of the published config file:
 
 ```php
-use Creode\LaravelNovaAssets\Nova\Actions\BulkAssetUploadAction;
 use DigitalCreative\Filepond\Filepond;
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Creode\LaravelNovaAssets\Nova\Actions\BulkAssetUploadAction;
 
 // config for Creode/LaravelNovaAssets
 return [
     'default_fields' => [
-        Filepond::make('Assets', 'location')
+        Filepond::make('Assets', 'location', config('assets.disk', 'public'))
+            ->rules('required')
+            ->mimesTypes(['image/*', 'application/pdf'])
+            ->displayUsing(function ($value) {
+                return '<img src="https://picsum.photos/200/300" alt="Image" />';
+            })
+            ->store(function (NovaRequest $request, Model $model, string $attribute): array {
+                return [
+                    $attribute => $request->location->store('/', ['disk' => config('assets.disk', 'public')]),
+                    'name' => $request->location->getClientOriginalName(),
+                    'size' => $request->location->getSize(),
+                ];
+            }),
+    ],
+    'default_bulk_fields' => [
+        Filepond::make('Assets', 'location', config('assets.disk', 'public'))
             ->rules('required')
             ->multiple()
-            ->mimesTypes(['image/*'])
-            ->default(fn() => []),
+            ->mimesTypes(['image/*', 'application/zip', 'zip', 'application/pdf'])
     ],
     'default_actions' => [
-        BulkAssetUploadAction::make()->standalone(),
+        BulkAssetUploadAction::make()->standalone()
+            ->onlyOnIndex()
+            ->confirmButtonText('Upload')
+            ->confirmText('Are you sure you want to upload these assets?')
+            ->cancelButtonText('Cancel'),
     ],
 ];
 ```
+
+There is a known configuration issue with these fields as it doesn't seem to render them correctly on the index page. Likely because they are not treated as different instances of the same field if they come from config.
 
 ## Usage
 The purpose of this module is to use the existing assets model class and wrap it into a Nova resource. This allows us to use the existing functionality of the assets module in Nova. We use some hookable functionality which is documented below that gives any child modules the ability to add custom fields and actions to the resource.
