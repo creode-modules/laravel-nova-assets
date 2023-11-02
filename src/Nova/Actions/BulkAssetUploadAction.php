@@ -3,9 +3,10 @@
 namespace Creode\LaravelNovaAssets\Nova\Actions;
 
 use Creode\LaravelNovaAssets\AssetProcessor;
+use Creode\LaravelNovaAssets\Events\DefineAssetBulkFieldsEvent;
 use Creode\LaravelNovaAssets\Jobs\AssetUploadJob;
 use Creode\LaravelNovaAssets\Jobs\ProcessArchiveJob;
-use Illuminate\Bus\Batch;
+use DigitalCreative\Filepond\Filepond;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
@@ -62,6 +63,22 @@ class BulkAssetUploadAction extends Action
      */
     public function fields(NovaRequest $request)
     {
-        return config('nova-assets.default_bulk_fields', []);
+        $defaultFields = [
+            Filepond::make('Assets', 'location', config('assets.disk', 'public'))
+                ->rules('required')
+                ->multiple()
+                ->mimesTypes(
+                    config(
+                        'nova-assets.default_upload_accepted_mime_types',
+                        []
+                    )
+                ),
+        ];
+
+        // Trigger an event for adding fields.
+        $event = new DefineAssetBulkFieldsEvent($defaultFields);
+        event($event);
+
+        return $event->fields;
     }
 }

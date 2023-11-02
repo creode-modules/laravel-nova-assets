@@ -1,27 +1,9 @@
 <?php
 
 use Creode\LaravelNovaAssets\Nova\Actions\BulkAssetUploadAction;
-use DigitalCreative\Filepond\Filepond;
 
 // config for Creode/LaravelNovaAssets
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Default Bulk Fields
-    |--------------------------------------------------------------------------
-    |
-    | This value contains the default bulk fields which will be rendered when
-    | doing a bulk upload. You can add or remove fields as you wish.
-    |
-    */
-
-    'default_bulk_fields' => [
-        Filepond::make('Assets', 'location', config('assets.disk', 'public'))
-            ->rules('required')
-            ->multiple()
-            ->mimesTypes(['image/*', 'application/zip', 'zip', 'application/pdf']),
-    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -34,11 +16,29 @@ return [
     */
 
     'default_actions' => [
-        BulkAssetUploadAction::make()->standalone()
+        BulkAssetUploadAction::make()
+            ->standalone()
             ->confirmButtonText('Upload')
             ->confirmText('Are you sure you want to upload these assets?')
             ->cancelButtonText('Cancel')
             ->onlyOnIndex(),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Bulk Upload Accepted Mime Types
+    |--------------------------------------------------------------------------
+    |
+    | This value contains the default bulk fields which will be rendered when
+    | doing a bulk upload. You can add or remove fields as you wish.
+    |
+    */
+
+    'default_bulk_upload_accepted_mime_types' => [
+        'image/*',
+        'application/zip',
+        'zip',
+        'application/pdf',
     ],
 
     /*
