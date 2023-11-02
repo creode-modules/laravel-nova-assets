@@ -2,13 +2,15 @@
 
 namespace Creode\LaravelNovaAssets\Nova;
 
+use Laravel\Nova\Resource;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Text;
 use Creode\LaravelAssets\Models\Asset;
-use Creode\LaravelNovaAssets\Events\DefineAssetActionsEvent;
-use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
 use DigitalCreative\Filepond\Filepond;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Resource;
+use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
+use Creode\LaravelNovaAssets\Events\DefineAssetActionsEvent;
 
 class AssetResource extends Resource
 {
@@ -53,6 +55,9 @@ class AssetResource extends Resource
     public function fields(NovaRequest $request)
     {
         $defaultFields = [
+            Text::make('Name')
+                ->onlyOnIndex()
+                ->sortable(),
             Filepond::make('Assets', 'location', config('assets.disk', 'public'))
                 ->rules('required')
                 ->mimesTypes(['image/*', 'application/pdf'])
@@ -67,6 +72,9 @@ class AssetResource extends Resource
                         'mime_type' => $request->location->getClientMimeType(),
                     ];
                 }),
+            DateTime::make('Created At')
+                ->onlyOnIndex()
+                ->sortable(),
         ];
 
         // Trigger an event for adding fields.
