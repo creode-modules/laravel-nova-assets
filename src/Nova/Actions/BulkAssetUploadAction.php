@@ -2,18 +2,19 @@
 
 namespace Creode\LaravelNovaAssets\Nova\Actions;
 
+use Illuminate\Bus\Queueable;
+use Laravel\Nova\Actions\Action;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Nova\Fields\ActionFields;
+use DigitalCreative\Filepond\Filepond;
+use Illuminate\Queue\InteractsWithQueue;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Creode\LaravelNovaAssets\AssetProcessor;
 use Creode\LaravelNovaAssets\Jobs\AssetUploadJob;
 use Creode\LaravelNovaAssets\Jobs\ProcessArchiveJob;
-use Illuminate\Bus\Batch;
-use Illuminate\Bus\Queueable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Bus;
-use Laravel\Nova\Actions\Action;
-use Laravel\Nova\Fields\ActionFields;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Creode\LaravelNovaAssets\Events\DefineAssetBulkFieldsEvent;
 
 class BulkAssetUploadAction extends Action
 {
@@ -62,6 +63,22 @@ class BulkAssetUploadAction extends Action
      */
     public function fields(NovaRequest $request)
     {
-        return config('nova-assets.default_bulk_fields', []);
+        $defaultFields = [
+            Filepond::make('Assets', 'location', config('assets.disk', 'public'))
+                ->rules('required')
+                ->multiple()
+                ->mimesTypes(
+                    config(
+                        'nova-assets.default_upload_accepted_mime_types',
+                        []
+                    )
+                ),
+        ];
+
+        // Trigger an event for adding fields.
+        $event = new DefineAssetBulkFieldsEvent($defaultFields);
+        event($event);
+
+        return $event->fields;
     }
 }
