@@ -70,7 +70,12 @@ class BulkAssetUploadAction extends Action
                 ->mimesTypes(
                     config(
                         'nova-assets.default_upload_accepted_mime_types',
-                        []
+                        [
+                            'image/*',
+                            'application/zip',
+                            'zip',
+                            'application/pdf',
+                        ],
                     )
                 ),
         ];
