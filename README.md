@@ -24,30 +24,10 @@ php artisan vendor:publish --tag="nova-assets-config"
 This is the contents of the published config file:
 
 ```php
-use DigitalCreative\Filepond\Filepond;
-use Illuminate\Database\Eloquent\Model;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Creode\LaravelNovaAssets\Nova\Actions\BulkAssetUploadAction;
 
 // config for Creode/LaravelNovaAssets
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Default Bulk Fields
-    |--------------------------------------------------------------------------
-    |
-    | This value contains the default bulk fields which will be rendered when
-    | doing a bulk upload. You can add or remove fields as you wish.
-    |
-    */
-
-    'default_bulk_fields' => [
-        Filepond::make('Assets', 'location', config('assets.disk', 'public'))
-            ->rules('required')
-            ->multiple()
-            ->mimesTypes(['image/*', 'application/zip', 'zip', 'application/pdf'])
-    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -60,16 +40,50 @@ return [
     */
 
     'default_actions' => [
-        BulkAssetUploadAction::make()->standalone()
-            ->onlyOnIndex()
+        BulkAssetUploadAction::make()
+            ->standalone()
             ->confirmButtonText('Upload')
             ->confirmText('Are you sure you want to upload these assets?')
-            ->cancelButtonText('Cancel'),
+            ->cancelButtonText('Cancel')
+            ->onlyOnIndex(),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Bulk Upload Accepted Mime Types
+    |--------------------------------------------------------------------------
+    |
+    | This value contains the default bulk fields which will be rendered when
+    | doing a bulk upload. You can add or remove fields as you wish.
+    |
+    */
+
+    'default_bulk_upload_accepted_mime_types' => [
+        'image/*',
+        'application/zip',
+        'zip',
+        'application/pdf',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allowed Zip File Extensions
+    |--------------------------------------------------------------------------
+    |
+    | This value contains an array of allowed file extensions which will be
+    | pulled when extracting zip files during a bulk upload action.
+    |
+    */
+
+    'accepted_zip_file_extensions' => [
+        'png',
+        'jpeg',
+        'jpg',
+        'webp',
+        'pdf',
     ],
 ];
 ```
-
-There is a known configuration issue with these fields as it doesn't seem to render them correctly on the index page. Likely because they are not treated as different instances of the same field if they come from config.
 
 ## Usage
 The purpose of this module is to use the existing assets model class and wrap it into a Nova resource. This allows us to use the existing functionality of the assets module in Nova. We use some hookable functionality which is documented below that gives any child modules the ability to add custom fields and actions to the resource.
@@ -89,6 +103,15 @@ You can register custom resource actions to appear on the Asset resource. To do 
 ```php
 Event::listen(function (DefineAssetActionsEvent $event) {
     $event->actions[] = TestActionClass::make();
+});
+```
+
+### Registering Custom Bulk Asset Fields
+You can register custom bulk asset fields to appear on the Bulk Asset Upload action. To do this you need to listen for the `DefineBulkAssetFieldsEvent` event and add your fields to the `$fields` array. For a full list of Nova fields please look at the [Nova documentation](https://nova.laravel.com/docs/4.0/resources/fields.html).
+    
+```php
+Event::listen(function (DefineBulkAssetFieldsEvent $event) {
+    $event->fields[] = Text::make('Folder', 'folder_id');
 });
 ```
 
