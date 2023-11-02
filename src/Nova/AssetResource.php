@@ -64,6 +64,7 @@ class AssetResource extends Resource
                         $attribute => $request->location->store('/', ['disk' => config('assets.disk', 'public')]),
                         'name' => $request->location->getClientOriginalName(),
                         'size' => $request->location->getSize(),
+                        'mime_type' => $request->location->getClientMimeType(),
                     ];
                 }),
         ];

@@ -28,7 +28,7 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-nova-assets')
             ->hasConfigFile()
-            ->hasMigration('add_filepond_fields')
+            ->hasMigrations(['add_filepond_fields', 'add_filepond_mime_type_field'])
             ->runsMigrations();
     }
 }
