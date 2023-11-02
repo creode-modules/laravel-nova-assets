@@ -97,7 +97,7 @@ Event::listen(function (DefineAssetFieldsEvent $event) {
 });
 ```
 
-### Registering Custom Resource Actions
+### Registering Custom Resource Actions
 You can register custom resource actions to appear on the Asset resource. To do this you need to listen for the `DefineAssetActionsEvent` event and add your actions to the `$actions` array. These just use Nova's standard Actions functionality. For details about defining actions please look at the [Nova documentation](https://nova.laravel.com/docs/4.0/actions/defining-actions.html).
 
 ```php
