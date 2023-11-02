@@ -22,6 +22,7 @@ class AssetService
         $asset->name = $uploadAsset->getOriginalName();
         $asset->size = $uploadAsset->getOriginalSize();
         $asset->location = $uploadAsset->getRelativePath();
+        $asset->mime_type = $uploadAsset->getMimeType();
 
         foreach ($fields as $key => $fieldValue) {
             $asset->$key = $fieldValue;
@@ -69,6 +70,9 @@ class AssetService
             $locationPath,
             $fileInfo['basename'],
             filesize(
+                Storage::disk(config('assets.disk', 'public'))->path($locationPath)
+            ),
+            mime_content_type(
                 Storage::disk(config('assets.disk', 'public'))->path($locationPath)
             )
         );

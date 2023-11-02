@@ -14,8 +14,9 @@ class UploadAsset
      * @param  string  $relativePath Relative path to the file (excluding disk path).
      * @param  string  $originalName Original name of the uploaded file.
      * @param  int  $originalSize Original Size of the uploaded file.
+     * @param  string $mimeType Mime type of the uploaded file.
      */
-    public function __construct(protected string $relativePath, protected string $originalName, protected int $originalSize)
+    public function __construct(protected string $relativePath, protected string $originalName, protected int $originalSize, protected string $mimeType)
     {
     }
 
@@ -47,5 +48,9 @@ class UploadAsset
     public function getOriginalSize()
     {
         return $this->originalSize;
+    }
+
+    public function getMimeType() {
+        return $this->mimeType;
     }
 }
