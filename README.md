@@ -124,7 +124,7 @@ Event::listen(function (DefineAssetFieldsEvent $event) {
 });
 ```
 
-This will then inject the field directly after the other. This is useful if you want to add a field after a specific field but don't want to have to worry about the order of the fields in the array.
+This will then inject the field directly after the other. This is useful if you want to add a field after a specific field but don't want to have to worry about the order of the fields in the array. The only caveat here is that if the field with the provided first attribute doesn't exist, it will not add the field.
 
 ## Testing
 
