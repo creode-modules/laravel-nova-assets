@@ -115,6 +115,17 @@ Event::listen(function (DefineBulkAssetFieldsEvent $event) {
 });
 ```
 
+## Insert a field after another one
+As of version `1.4.0` of this module, you can now run a helper function to add an attribute in after another one. This can be done by running the following:
+    
+```php
+Event::listen(function (DefineAssetFieldsEvent $event) {
+    $event->addFieldAfter('name', Text::make('Folder', 'folder_id'));
+});
+```
+
+This will then inject the field directly after the other. This is useful if you want to add a field after a specific field but don't want to have to worry about the order of the fields in the array.
+
 ## Testing
 
 ```bash
