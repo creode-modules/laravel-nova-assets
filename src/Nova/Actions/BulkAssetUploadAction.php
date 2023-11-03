@@ -6,6 +6,7 @@ use Creode\LaravelNovaAssets\AssetProcessor;
 use Creode\LaravelNovaAssets\Events\DefineAssetBulkFieldsEvent;
 use Creode\LaravelNovaAssets\Jobs\AssetUploadJob;
 use Creode\LaravelNovaAssets\Jobs\ProcessArchiveJob;
+use Creode\LaravelNovaAssets\Notifications\BulkUploadSuccessNotification;
 use DigitalCreative\Filepond\Filepond;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -48,7 +49,15 @@ class BulkAssetUploadAction extends Action
             $jobsToProcess[] = new AssetUploadJob($assetField, $fields->toArray());
         }
 
+        // Record the logged in user.
+        $user = Auth::user();
+
         $batch = Bus::batch($jobsToProcess)
+            ->then(function () use ($user) {
+                $user->notify(new BulkUploadSuccessNotification(
+                    __('Your uploaded assets have been processed!')
+                ));
+            })
             ->dispatch();
 
         return Action::message(
