@@ -21,8 +21,8 @@ class DefineAssetFieldsEvent
     /**
      * Allows you to add a field to the array after a specific one.
      *
-     * @param Field $field Field to add.
-     * @param string $after Attribute name of field to insert after.
+     * @param  Field  $field Field to add.
+     * @param  string  $after Attribute name of field to insert after.
      * @return array Array of fields.
      */
     public function addFieldAfter(Field $fieldToInsert, string $after)
