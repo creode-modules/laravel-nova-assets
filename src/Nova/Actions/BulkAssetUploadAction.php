@@ -22,6 +22,13 @@ class BulkAssetUploadAction extends Action
     use InteractsWithQueue, Queueable;
 
     /**
+     * The displayable name of the action.
+     *
+     * @var string
+     */
+    public $name = 'Bulk Upload';
+
+    /**
      * Perform the action on the given models.
      *
      * @return mixed
