@@ -115,7 +115,7 @@ Event::listen(function (DefineBulkAssetFieldsEvent $event) {
 });
 ```
 
-## Insert a field after another one
+### Insert a field after another one
 As of version `1.4.0` of this module, you can now run a helper function to add an attribute in after another one. This can be done by running the following:
     
 ```php
@@ -125,6 +125,21 @@ Event::listen(function (DefineAssetFieldsEvent $event) {
 ```
 
 This will then inject the field directly after the other. This is useful if you want to add a field after a specific field but don't want to have to worry about the order of the fields in the array. The only caveat here is that if the field with the provided first attribute doesn't exist, it will not add the field.
+
+## Permissions
+This module exposes a new permission seeder class which will need to be published to your application in order to grant permissions to the new resource. To do this you need to run the following command:
+
+```bash
+php artisan vendor:publish --tag="nova-assets-seeders"
+```
+
+This will create a new `AssetRoleAndPermissionSeeder.php` file within your `database/seeders` directory. This will need to be run in order to grant permissions to the new resource. You can run this by running the following command:
+
+```bash
+php artisan db:seed --class=AssetRoleAndPermissionSeeder
+```
+
+You should now see in your database a collection of permissions and a new role called `asset-manager`. This role will have all the permissions required to manage assets. Before running this, it requires the setup of any tables for the `spatie/laravel-permissions` package. Please see the [documentation](https://spatie.be/docs/laravel-permission/v6/installation-laravel) for more information.
 
 ## Testing
 

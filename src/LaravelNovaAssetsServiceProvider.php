@@ -13,6 +13,11 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
     {
         parent::boot();
 
+        // Publishes the permissions seeder.
+        $this->publishes([
+            __DIR__.'/../database/seeders/AssetRoleAndPermissionSeeder.php' => database_path('seeders/AssetRoleAndPermissionSeeder.php'),
+        ], 'nova-assets-seeders');
+
         Nova::resources([
             AssetResource::class,
         ]);

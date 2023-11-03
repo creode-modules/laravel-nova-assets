@@ -27,7 +27,8 @@
         "digital-creative/nova-filepond": "^1.0.3",
         "illuminate/contracts": "^10.0",
         "laravel/nova": "^4.27",
-        "spatie/laravel-package-tools": "^1.14.0"
+        "spatie/laravel-package-tools": "^1.14.0",
+        "creode/permissions-seeder": "^1.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
