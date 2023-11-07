@@ -5,6 +5,7 @@ namespace Creode\LaravelNovaAssets\Nova;
 use Creode\LaravelAssets\Models\Asset;
 use Creode\LaravelNovaAssets\Events\DefineAssetActionsEvent;
 use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
+use Creode\MimeTypeAssetField\MimeTypeAssetField;
 use DigitalCreative\Filepond\Filepond;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Fields\DateTime;
@@ -72,6 +73,9 @@ class AssetResource extends Resource
                         'mime_type' => $request->location->getClientMimeType(),
                     ];
                 }),
+            MimeTypeAssetField::make('Field', 'mime_type')
+                ->onlyOnIndex()
+                ->sortable(),
             DateTime::make('Created At')
                 ->onlyOnIndex()
                 ->sortable(),
