@@ -33,12 +33,10 @@ class ZipExtractorService
                     $filePath = $fileinfo['filename'].'-'.time().'.'.$fileinfo['extension'];
                 }
 
-                // Save file and add to list of files.
-                $success = copy(
-                    'zip://'.$zipPath.'#'.$filename,
-                    Storage::disk(config('assets.disk'))->path($filePath)
+                $success = Storage::disk(config('assets.disk'))->put(
+                    $filePath,
+                    file_get_contents('zip://'.$zipPath.'#'.$filename)
                 );
-
                 if (! $success) {
                     throw new \Exception('Failed to copy file from zip.');
                 }
