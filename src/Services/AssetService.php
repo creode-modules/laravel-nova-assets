@@ -69,12 +69,8 @@ class AssetService
         return UploadAsset::make(
             $locationPath,
             $fileInfo['basename'],
-            filesize(
-                Storage::disk(config('assets.disk', 'public'))->path($locationPath)
-            ),
-            mime_content_type(
-                Storage::disk(config('assets.disk', 'public'))->path($locationPath)
-            )
+            Storage::disk(config('assets.disk', 'public'))->size($locationPath),
+            Storage::disk(config('assets.disk', 'public'))->mimeType($locationPath)
         );
     }
 }
