@@ -2,11 +2,11 @@
 
 namespace Creode\LaravelNovaAssets;
 
-use Laravel\Nova\Nova;
+use Creode\LaravelNovaAssets\Nova\AssetResource;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Nova;
 use Spatie\LaravelPackageTools\Package;
-use Creode\LaravelNovaAssets\Nova\AssetResource;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
@@ -51,7 +51,7 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
     public function registerPolicies()
     {
         Gate::guessPolicyNamesUsing(function ($modelClass) {
-            return 'Creode\\LaravelNovaAssets\\Policies\\' . class_basename($modelClass) . 'Policy';
+            return 'Creode\\LaravelNovaAssets\\Policies\\'.class_basename($modelClass).'Policy';
         });
     }
 }

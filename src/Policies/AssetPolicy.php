@@ -3,8 +3,8 @@
 namespace Creode\LaravelNovaAssets\Policies;
 
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 use Creode\LaravelAssets\Models\Asset as AssetModel;
+use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class AssetPolicy
