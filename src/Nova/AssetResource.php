@@ -8,7 +8,9 @@ use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
 use Creode\MimeTypeAssetField\MimeTypeAssetField;
 use DigitalCreative\Filepond\Filepond;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Request;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
@@ -73,8 +75,20 @@ class AssetResource extends Resource
                         'mime_type' => $request->location->getClientMimeType(),
                     ];
                 }),
-            MimeTypeAssetField::make('Field', 'mime_type')
+            MimeTypeAssetField::make('File', 'mime_type')
                 ->onlyOnIndex()
+                ->showOnIndex(function () {
+                    return ! $this->resource->isImage($this->resource->mime_type);
+                })
+                ->sortable(),
+            Image::make('File', 'location')
+                ->onlyOnIndex()
+                ->showOnIndex(function () {
+                    return $this->resource->isImage($this->resource->mime_type);
+                })
+                ->thumbnail(function () {
+                    return route('asset.generateThumbnail', ['asset' => $this->resource->id]);
+                })
                 ->sortable(),
             DateTime::make('Created At')
                 ->onlyOnIndex()
