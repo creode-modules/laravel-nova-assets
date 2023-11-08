@@ -9,7 +9,6 @@ use Creode\MimeTypeAssetField\MimeTypeAssetField;
 use DigitalCreative\Filepond\Filepond;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;

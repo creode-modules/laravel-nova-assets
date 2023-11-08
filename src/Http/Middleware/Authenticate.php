@@ -9,13 +9,12 @@ class Authenticate
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request):mixed  $next
      * @return \Illuminate\Http\Response
      */
     public function handle(Request $request, $next)
     {
-        if (!$request->user()->hasPermissionTo('viewAnyAsset')) {
+        if (! $request->user()->hasPermissionTo('viewAnyAsset')) {
             abort(403);
         }
 

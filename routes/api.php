@@ -10,7 +10,7 @@ Route::get('/generate/{asset:id}/thumbnail', function ($id) {
 
     $asset = Asset::findOrFail($id);
 
-    if (!$asset->isImage($asset->mime_type)) {
+    if (! $asset->isImage($asset->mime_type)) {
         return response()->json(['message' => 'File is not an image'], 400);
     }
 

@@ -5,11 +5,11 @@ namespace Creode\LaravelNovaAssets;
 use Creode\LaravelNovaAssets\Http\Middleware\Authenticate;
 use Creode\LaravelNovaAssets\Nova\AssetResource;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Illuminate\Support\Facades\Route;
 
 class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
 {
