@@ -8,13 +8,13 @@ use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
 use Creode\MimeTypeAssetField\MimeTypeAssetField;
 use DigitalCreative\Filepond\Filepond;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
-use Intervention\Image\ImageManagerStatic as InterventionImage;
 
 class AssetResource extends Resource
 {
@@ -86,6 +86,9 @@ class AssetResource extends Resource
                 ->onlyOnIndex()
                 ->showOnIndex(function () {
                     return $this->resource->isImage($this->resource->mime_type);
+                })
+                ->thumbnail(function () {
+                    return route('asset.generateThumbnail', ['asset' => $this->resource->id]);
                 })
                 ->sortable(),
             DateTime::make('Created At')

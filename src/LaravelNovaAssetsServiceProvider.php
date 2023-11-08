@@ -2,12 +2,14 @@
 
 namespace Creode\LaravelNovaAssets;
 
+use Creode\LaravelNovaAssets\Http\Middleware\Authenticate;
 use Creode\LaravelNovaAssets\Nova\AssetResource;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
 {
@@ -27,6 +29,26 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
         Nova::serving(function (ServingNova $event) {
             $this->registerPolicies();
         });
+
+        $this->app->booted(function () {
+            $this->routes();
+        });
+    }
+
+    /**
+     * Register the tool's routes.
+     *
+     * @return void
+     */
+    protected function routes()
+    {
+        if ($this->app->routesAreCached()) {
+            return;
+        }
+
+        Route::middleware(['nova', Authenticate::class])
+            ->prefix('assets')
+            ->group(__DIR__.'/../routes/api.php');
     }
 
     public function configurePackage(Package $package): void
