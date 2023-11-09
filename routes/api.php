@@ -14,7 +14,7 @@ Route::get('/generate/{asset:id}/thumbnail', function ($id) {
         return response()->json(['message' => 'File is not an image'], 400);
     }
 
-    return InterventionImage::make($asset->path)
+    return InterventionImage::make($asset->url)
         ->crop(250, 250)
         ->response('png');
 })->name('asset.generateThumbnail');
