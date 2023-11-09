@@ -82,6 +82,8 @@ class AssetResource extends Resource
                 })
                 ->sortable(),
             Image::make('File', 'location')
+                ->indexWidth(40)
+                ->textAlign('left')
                 ->onlyOnIndex()
                 ->showOnIndex(function () {
                     return $this->resource->isImage($this->resource->mime_type);
