@@ -72,8 +72,6 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
      */
     public function registerPolicies()
     {
-        Gate::guessPolicyNamesUsing(function ($modelClass) {
-            return 'Creode\\LaravelNovaAssets\\Policies\\'.class_basename($modelClass).'Policy';
-        });
+        Gate::policy(config('assets.asset_model'), config('nova-assets.asset_policy'));
     }
 }
