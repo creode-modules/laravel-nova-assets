@@ -22,6 +22,8 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
             __DIR__.'/../database/seeders/AssetRoleAndPermissionSeeder.php' => database_path('seeders/AssetRoleAndPermissionSeeder.php'),
         ], 'nova-assets-seeders');
 
+        // Register the Model for the AssetResource and the AssetResource itself.
+        AssetResource::$model = config('assets.asset_model');
         Nova::resources([
             AssetResource::class,
         ]);
@@ -72,8 +74,6 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
      */
     public function registerPolicies()
     {
-        Gate::guessPolicyNamesUsing(function ($modelClass) {
-            return 'Creode\\LaravelNovaAssets\\Policies\\'.class_basename($modelClass).'Policy';
-        });
+        Gate::policy(config('assets.asset_model'), config('nova-assets.asset_policy'));
     }
 }

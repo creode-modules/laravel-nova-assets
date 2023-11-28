@@ -23,7 +23,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "creode/laravel-assets": "^1.0",
+        "creode/laravel-assets": "^1.2",
         "creode/nova-mime-asset-icon-field": "^1.0",
         "creode/permissions-seeder": "^1.0",
         "digital-creative/nova-filepond": "^1.0.3",

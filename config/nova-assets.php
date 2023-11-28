@@ -58,4 +58,17 @@ return [
         'webp',
         'pdf',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Asset Policy
+    |--------------------------------------------------------------------------
+    |
+    | This value contains the policy which will be used when verifying if a
+    | user can perform an action on an asset. You can change this to your own
+    | policy if you wish.
+    |
+    */
+
+    'asset_policy' => \Creode\LaravelNovaAssets\Policies\AssetPolicy::class,
 ];
