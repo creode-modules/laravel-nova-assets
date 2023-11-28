@@ -2,17 +2,17 @@
 
 namespace Creode\LaravelNovaAssets\Nova;
 
-use Laravel\Nova\Resource;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\DateTime;
 use Creode\LaravelAssets\Models\Asset;
+use Creode\LaravelNovaAssets\Events\DefineAssetActionsEvent;
+use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
+use Creode\MimeTypeAssetField\MimeTypeAssetField;
 use DigitalCreative\Filepond\Filepond;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Creode\MimeTypeAssetField\MimeTypeAssetField;
-use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
-use Creode\LaravelNovaAssets\Events\DefineAssetActionsEvent;
+use Laravel\Nova\Resource;
 
 class AssetResource extends Resource
 {
