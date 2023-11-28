@@ -2,14 +2,14 @@
 
 namespace Creode\LaravelNovaAssets;
 
-use Creode\LaravelNovaAssets\Http\Middleware\Authenticate;
-use Creode\LaravelNovaAssets\Nova\AssetResource;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Route;
-use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
+use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Events\ServingNova;
+use Illuminate\Support\Facades\Route;
 use Spatie\LaravelPackageTools\Package;
+use Creode\LaravelNovaAssets\Nova\AssetResource;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Creode\LaravelNovaAssets\Http\Middleware\Authenticate;
 
 class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
 {
@@ -22,6 +22,8 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
             __DIR__.'/../database/seeders/AssetRoleAndPermissionSeeder.php' => database_path('seeders/AssetRoleAndPermissionSeeder.php'),
         ], 'nova-assets-seeders');
 
+        // Register the Model for the AssetResource and the AssetResource itself.
+        AssetResource::$model = config('assets.asset_model');
         Nova::resources([
             AssetResource::class,
         ]);
