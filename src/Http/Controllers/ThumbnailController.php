@@ -10,8 +10,6 @@ class ThumbnailController
 {
     /**
      * Constructor for class.
-     *
-     * @param AssetService $assetService
      */
     public function __construct(protected AssetService $assetService)
     {
@@ -20,7 +18,6 @@ class ThumbnailController
     /**
      * Single function used to generate asset thumbnails.
      *
-     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function __invoke(int $id)

@@ -2,14 +2,13 @@
 
 namespace Creode\LaravelNovaAssets\Services;
 
-use Illuminate\Support\Str;
-use Intervention\Image\ImageManager;
-use Illuminate\Support\Facades\Cache;
 use Creode\LaravelAssets\Models\Asset;
-use Illuminate\Support\Facades\Storage;
 use Creode\LaravelNovaAssets\Helpers\UploadAsset;
-use Intervention\Image\Interfaces\ImageInterface;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\Drivers\Gd\Driver as GDDriver;
+use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\EncodedImageInterface;
 
 class AssetService
@@ -81,14 +80,11 @@ class AssetService
 
     /**
      * Converts an asset into a thumbnail.
-     *
-     * @param Asset $asset
-     * @return EncodedImageInterface
      */
     public function generateThumbnail(Asset $asset): EncodedImageInterface
     {
         // Build a cache for the image.
-        $cacheKey = 'image-optimiser-' . md5($asset->url . '250x250');
+        $cacheKey = 'image-optimiser-'.md5($asset->url.'250x250');
 
         // If the image is not in the cache, generate it.
         if (! $image = Cache::get($cacheKey)) {
@@ -103,9 +99,6 @@ class AssetService
 
     /**
      * Generates an image from an asset.
-     *
-     * @param Asset $asset
-     * @return EncodedImageInterface
      */
     private function processImage(Asset $asset): EncodedImageInterface
     {
