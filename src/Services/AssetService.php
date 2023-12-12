@@ -103,7 +103,7 @@ class AssetService
     private function processImage(Asset $asset): EncodedImageInterface
     {
         // Build Image Manager
-        $image = new ImageManager(GDDriver::class);
+        $image = new ImageManager(config('nova-assets.image_driver', GDDriver::class));
 
         // If image is not in the cache, generate it.
         if (filter_var($asset->url, FILTER_VALIDATE_URL)) {

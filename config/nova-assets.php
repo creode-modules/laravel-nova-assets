@@ -71,4 +71,21 @@ return [
     */
 
     'asset_policy' => \Creode\LaravelNovaAssets\Policies\AssetPolicy::class,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Image Driver
+    |--------------------------------------------------------------------------
+    |
+    | This value contains the image driver which will be used when generating
+    | thumbnails. You can change this to your own driver if you wish. Drivers
+    | must implement the Intervention\Image\Interfaces\DriverInterface
+    | interface.
+    |
+    | This can be one of the following:
+    | Intervention\Image\Drivers\Gd\Driver::class
+    | Intervention\Image\Drivers\Imagick\Driver::class
+    |
+    */
+    'image_driver' => Intervention\Image\Drivers\Gd\Driver::class,
 ];
