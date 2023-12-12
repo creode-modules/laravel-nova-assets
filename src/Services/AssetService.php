@@ -2,10 +2,15 @@
 
 namespace Creode\LaravelNovaAssets\Services;
 
-use Creode\LaravelAssets\Models\Asset;
-use Creode\LaravelNovaAssets\Helpers\UploadAsset;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Cache;
+use Creode\LaravelAssets\Models\Asset;
+use Illuminate\Support\Facades\Storage;
+use Creode\LaravelNovaAssets\Helpers\UploadAsset;
+use Intervention\Image\Interfaces\ImageInterface;
+use Intervention\Image\Drivers\Gd\Driver as GDDriver;
+use Intervention\Image\Interfaces\EncodedImageInterface;
 
 class AssetService
 {
@@ -72,5 +77,52 @@ class AssetService
             Storage::disk(config('assets.disk', 'public'))->size($locationPath),
             Storage::disk(config('assets.disk', 'public'))->mimeType($locationPath)
         );
+    }
+
+    /**
+     * Converts an asset into a thumbnail.
+     *
+     * @param Asset $asset
+     * @return EncodedImageInterface
+     */
+    public function generateThumbnail(Asset $asset): EncodedImageInterface
+    {
+        // Build a cache for the image.
+        $cacheKey = 'image-optimiser-' . md5($asset->url . '250x250');
+
+        // If the image is not in the cache, generate it.
+        if (! $image = Cache::get($cacheKey)) {
+            $image = $this->processImage($asset);
+
+            $oneWeekInMinutes = 60 * 24 * 7;
+            Cache::put($cacheKey, $image, $oneWeekInMinutes);
+        }
+
+        return $image;
+    }
+
+    /**
+     * Generates an image from an asset.
+     *
+     * @param Asset $asset
+     * @return EncodedImageInterface
+     */
+    private function processImage(Asset $asset): EncodedImageInterface
+    {
+        // Build Image Manager
+        $image = new ImageManager(GDDriver::class);
+
+        // If image is not in the cache, generate it.
+        if (filter_var($asset->url, FILTER_VALIDATE_URL)) {
+            $image = $image->read(file_get_contents($asset->url));
+        } else {
+            $image = $image->read($asset->url);
+        }
+
+        // Process the image.
+        $image = $image->cover(250, 250, 'top-center');
+        $image = $image->toWebp();
+
+        return $image;
     }
 }

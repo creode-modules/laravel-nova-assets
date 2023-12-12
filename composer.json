@@ -28,9 +28,9 @@
         "creode/permissions-seeder": "^1.0",
         "digital-creative/nova-filepond": "^1.0.3",
         "illuminate/contracts": "^10.0",
+        "intervention/image": "^3.0",
         "laravel/nova": "^4.27",
-        "spatie/laravel-package-tools": "^1.14.0",
-        "intervention/image": "^2.7"
+        "spatie/laravel-package-tools": "^1.14.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
