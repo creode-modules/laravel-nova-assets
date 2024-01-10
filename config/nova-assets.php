@@ -26,6 +26,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Allowed Mime Types
+    |--------------------------------------------------------------------------
+    |
+    | This value contains the allowed mime types for the module. You can add or
+    | remove mime types as you wish.
+    |
+    */
+    'allowed_mime_types' => [
+        'image/*',
+        'application/pdf',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Default Bulk Upload Accepted Mime Types
     |--------------------------------------------------------------------------
     |

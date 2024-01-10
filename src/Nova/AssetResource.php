@@ -62,7 +62,7 @@ class AssetResource extends Resource
                 ->sortable(),
             Filepond::make('Assets', 'location', config('assets.disk', 'public'))
                 ->rules('required')
-                ->mimesTypes(['image/*', 'application/pdf'])
+                ->mimesTypes(config('nova-assets.allowed_mime_types'))
                 ->displayUsing(function ($value) {
                     return '<img src="https://picsum.photos/200/300" alt="Image" />';
                 })
