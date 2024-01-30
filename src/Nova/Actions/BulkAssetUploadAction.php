@@ -53,7 +53,7 @@ class BulkAssetUploadAction extends Action
                 continue;
             }
 
-            $jobsToProcess[] = new AssetUploadJob($assetField, $fields->toArray());
+            $jobsToProcess[] = new AssetUploadJob(Auth::user(), $assetField, $fields->toArray());
         }
 
         // Record the logged in user.

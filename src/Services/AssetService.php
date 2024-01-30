@@ -27,6 +27,7 @@ class AssetService
         $asset->size = $uploadAsset->getOriginalSize();
         $asset->location = $uploadAsset->getRelativePath();
         $asset->mime_type = $uploadAsset->getMimeType();
+        $asset->disk = config('assets.disk', 'public');
 
         foreach ($fields as $key => $fieldValue) {
             $asset->$key = $fieldValue;
@@ -67,7 +68,7 @@ class AssetService
         );
 
         if (! $moved) {
-            throw new \Exception('Couldn\'t move file');
+            throw new \Exception('Couldn\'t move file from ' . $oldPath . ' to ' . $locationPath . ' on disk ' . config('assets.disk', 'public') . '.');
         }
 
         return UploadAsset::make(

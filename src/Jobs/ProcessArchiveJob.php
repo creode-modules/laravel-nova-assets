@@ -2,18 +2,18 @@
 
 namespace Creode\LaravelNovaAssets\Jobs;
 
-use Creode\LaravelNovaAssets\Notifications\BulkAssetUploadFailedNotification;
-use Creode\LaravelNovaAssets\Services\AssetService;
-use Creode\LaravelNovaAssets\Services\ZipExtractorService;
+use Throwable;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
-use Throwable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Creode\LaravelNovaAssets\Services\AssetService;
+use Creode\LaravelNovaAssets\Services\ZipExtractorService;
+use Creode\LaravelNovaAssets\Notifications\UploadFailedNotification;
 
 class ProcessArchiveJob implements ShouldQueue
 {
@@ -41,14 +41,14 @@ class ProcessArchiveJob implements ShouldQueue
             $zipPath
         );
 
-        // Delete the zip file.
-        unlink($zipPath);
-
         // Loop through each file and create a new Asset model.
         foreach ($extractedFiles as $uploadedFilePath) {
             $uploadAsset = $assetService->moveUploadedFile($uploadedFilePath);
             $assetService->createAsset($uploadAsset, $this->additionalFieldData);
         }
+
+        // Delete the zip file.
+        unlink($zipPath);
     }
 
     /**
@@ -57,6 +57,6 @@ class ProcessArchiveJob implements ShouldQueue
     public function failed(Throwable $exception): void
     {
         $currentFile = $this->assetField['filename'];
-        $this->userToNotify->notify(new BulkAssetUploadFailedNotification("Failed to unzip file: $currentFile. Please try again or send it to us directly for inspection."));
+        $this->userToNotify->notify(new UploadFailedNotification("Failed to unzip file: $currentFile. Please try again or send it to us directly for inspection."));
     }
 }

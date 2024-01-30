@@ -1,0 +1,27 @@
+preset: package
+
+namespace: Creode\LaravelNovaAssets
+user-auth-model: App\Models\User
+
+paths:
+  src: src
+  resource: resources
+
+factory:
+  path: database/factories
+
+migration:
+  path: database/migrations
+  prefix: ''
+
+console:
+  namespace: Creode\LaravelNovaAssets\Console
+
+model:
+  namespace: Creode\LaravelNovaAssets\Models
+
+provider:
+  namespace: Creode\LaravelNovaAssets\Providers
+
+testing:
+  namespace: Creode\LaravelNovaAssets\Tests

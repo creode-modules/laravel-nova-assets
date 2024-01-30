@@ -29,18 +29,18 @@ class ZipExtractorService
 
                 // Handle duplicate filenames.
                 $filePath = $fileinfo['basename'];
-                if (Storage::disk(config('assets.disk'))->exists($fileinfo['basename'])) {
+                if (Storage::disk(config('assets.disk', 'public'))->exists($fileinfo['basename'])) {
                     $filePath = $fileinfo['filename'].'-'.time().'.'.$fileinfo['extension'];
                 }
 
-                $success = Storage::disk(config('assets.disk'))->put(
+                $success = Storage::disk(config('assets.disk', 'public'))->put(
                     $filePath,
                     file_get_contents('zip://'.$zipPath.'#'.$filename)
                 );
                 if (! $success) {
                     throw new \Exception('Failed to copy file from zip.');
                 }
-                $extractedFilePaths[] = Storage::disk(config('assets.disk'))->path($filePath);
+                $extractedFilePaths[] = Storage::disk(config('assets.disk', 'public'))->path($filePath);
             }
             $zip->close();
         }

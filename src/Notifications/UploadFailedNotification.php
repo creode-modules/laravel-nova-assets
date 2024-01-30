@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class BulkAssetUploadFailedNotification extends Notification
+class UploadFailedNotification extends Notification
 {
     use Queueable;
 
