@@ -21,7 +21,8 @@ class AssetService
      */
     public function createAsset(UploadAsset $uploadAsset, array $fields)
     {
-        $asset = new Asset();
+        $class = config('assets.asset_model', Asset::class);
+        $asset = new $class;
 
         $asset->name = $uploadAsset->getOriginalName();
         $asset->size = $uploadAsset->getOriginalSize();
