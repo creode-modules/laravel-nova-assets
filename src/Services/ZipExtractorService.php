@@ -9,7 +9,7 @@ class ZipExtractorService
     /**
      * Extracts the contents of a zip file into a single folder, collapsing the folder structure.
      *
-     * @param  string  $zipPath Path to the zip file.
+     * @param  string  $zipPath  Path to the zip file.
      * @return array Array of extracted filepaths.
      */
     public function extractToCollapsedFolder($zipPath)

@@ -42,7 +42,7 @@ class AssetService
      * Moves the uploaded file to a location in-line with existing Filepond functionality.
      * Generates an uploaded asset type that can be used to create an asset.
      *
-     * @param  string  $filePath Full path to the uploaded file.
+     * @param  string  $filePath  Full path to the uploaded file.
      * @return UploadAsset
      */
     public function moveUploadedFile($filePath)
@@ -68,7 +68,7 @@ class AssetService
         );
 
         if (! $moved) {
-            throw new \Exception('Couldn\'t move file from ' . $oldPath . ' to ' . $locationPath . ' on disk ' . config('assets.disk', 'public') . '.');
+            throw new \Exception('Couldn\'t move file from '.$oldPath.' to '.$locationPath.' on disk '.config('assets.disk', 'public').'.');
         }
 
         return UploadAsset::make(

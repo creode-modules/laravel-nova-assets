@@ -2,17 +2,17 @@
 
 namespace Creode\LaravelNovaAssets\Jobs;
 
-use Throwable;
+use Creode\LaravelNovaAssets\Notifications\UploadFailedNotification;
+use Creode\LaravelNovaAssets\Services\AssetService;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Creode\LaravelNovaAssets\Services\AssetService;
-use Creode\LaravelNovaAssets\Notifications\UploadFailedNotification;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class AssetUploadJob implements ShouldQueue
 {
