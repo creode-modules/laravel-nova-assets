@@ -102,4 +102,15 @@ return [
     |
     */
     'image_driver' => Intervention\Image\Drivers\Gd\Driver::class,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Traffic Cop
+    |--------------------------------------------------------------------------
+    |
+    | Indicates whether Nova should check for modifications between viewing
+    | and updating a resource.
+    |
+    */
+    'traffic_cop' => true,
 ];

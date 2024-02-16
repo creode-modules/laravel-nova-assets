@@ -22,6 +22,9 @@ class LaravelNovaAssetsServiceProvider extends PackageServiceProvider
             __DIR__.'/../database/seeders/AssetRoleAndPermissionSeeder.php' => database_path('seeders/AssetRoleAndPermissionSeeder.php'),
         ], 'nova-assets-seeders');
 
+        // Set the traffic cop for the AssetResource.
+        AssetResource::$trafficCop = config('assets.traffic_cop');
+
         // Register the Model for the AssetResource and the AssetResource itself.
         AssetResource::$model = config('assets.asset_model');
         Nova::resources([
