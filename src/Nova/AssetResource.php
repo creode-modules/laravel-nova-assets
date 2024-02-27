@@ -73,7 +73,8 @@ class AssetResource extends Resource
                         'size' => $request->location->getSize(),
                         'mime_type' => $request->location->getClientMimeType(),
                     ];
-                }),
+                })
+                ->help(config('nova-assets.show_max_upload_size', false) ? 'Maximum File size is: '.ini_get('upload_max_filesize') : ''),
             MimeTypeAssetField::make('File', 'mime_type')
                 ->onlyOnIndex()
                 ->showOnIndex(function () {

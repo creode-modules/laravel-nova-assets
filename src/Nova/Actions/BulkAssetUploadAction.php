@@ -93,7 +93,8 @@ class BulkAssetUploadAction extends Action
                             'application/pdf',
                         ],
                     )
-                ),
+                )
+                ->help(config('nova-assets.show_max_upload_size', false) ? 'Maximum File size is: '.ini_get('upload_max_filesize') : ''),
         ];
 
         // Trigger an event for adding fields.
