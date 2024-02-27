@@ -122,5 +122,5 @@ return [
     | Indicates whether to show the max upload size in the asset resource.
     |
     */
-    'show_max_upload_size' => true,
+    'show_max_upload_size' => false,
 ];
