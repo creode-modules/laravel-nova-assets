@@ -40,7 +40,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Bulk Upload Accepted Mime Types
+    | Default Upload Accepted Mime Types
     |--------------------------------------------------------------------------
     |
     | This value contains the default bulk fields which will be rendered when
@@ -48,7 +48,7 @@ return [
     |
     */
 
-    'default_bulk_upload_accepted_mime_types' => [
+    'default_upload_accepted_mime_types' => [
         'image/*',
         'application/zip',
         'zip',
