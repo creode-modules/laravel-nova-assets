@@ -82,14 +82,6 @@ class AssetResource extends Resource
                     return ! $this->resource->isImage($this->resource->mime_type);
                 })
                 ->sortable(),
-            URL::make('File', fn () => $this->url)
-                ->onlyOnDetail()
-                ->showOnDetail(function () {
-                    return ! $this->resource->isImage($this->resource->mime_type);
-                })
-                ->displayUsing(function () {
-                    return 'View File';
-                }),
             Image::make('File', 'location')
                 ->indexWidth(40)
                 ->textAlign('left')
@@ -101,6 +93,10 @@ class AssetResource extends Resource
                     return route('asset.generateThumbnail', ['asset' => $this->resource->id]);
                 })
                 ->sortable(),
+            URL::make('File', fn () => $this->url)
+                ->displayUsing(function () {
+                    return 'View File';
+                }),
             DateTime::make('Created At')
                 ->onlyOnIndex()
                 ->sortable(),
