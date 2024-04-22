@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\URL;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
 
@@ -81,6 +82,14 @@ class AssetResource extends Resource
                     return ! $this->resource->isImage($this->resource->mime_type);
                 })
                 ->sortable(),
+            URL::make('File', fn () => $this->url)
+                ->onlyOnDetail()
+                ->showOnDetail(function () {
+                    return ! $this->resource->isImage($this->resource->mime_type);
+                })
+                ->displayUsing(function(){
+                    return 'View File';
+                }),
             Image::make('File', 'location')
                 ->indexWidth(40)
                 ->textAlign('left')
