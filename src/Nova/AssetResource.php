@@ -9,7 +9,6 @@ use Creode\MimeTypeAssetField\MimeTypeAssetField;
 use DigitalCreative\Filepond\Filepond;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\FormData;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\URL;
@@ -96,14 +95,14 @@ class AssetResource extends Resource
                 ->sortable(),
             URL::make('File',
                 function ($formData) {
-                    if( ! $formData->location ){
+                    if (! $formData->location) {
                         return '';
                     }
 
                     return $this->url;
                 })
                 ->displayUsing(function ($location) {
-                    if( ! $location ){
+                    if (! $location) {
                         return '';
                     }
 
