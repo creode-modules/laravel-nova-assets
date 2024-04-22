@@ -96,19 +96,18 @@ class AssetResource extends Resource
                 ->sortable(),
             URL::make('File',
                 function ($formData) {
-                    if( $formData->location ){
-                        return $this->url;
+                    if( ! $formData->location ){
+                        return '';
                     }
-                })
-                ->dependsOn('location', function ($field, $formData) {
-                    if( $formData->location ){
-                        $field->setValue('No File Found');
-                    }
+
+                    return $this->url;
                 })
                 ->displayUsing(function ($location) {
-                    if( $location ){
-                        return __('View File');
+                    if( ! $location ){
+                        return '';
                     }
+
+                    return __('View File');
                 }),
             DateTime::make('Created At')
                 ->onlyOnIndex()
