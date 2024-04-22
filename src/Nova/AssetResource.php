@@ -87,7 +87,7 @@ class AssetResource extends Resource
                 ->showOnDetail(function () {
                     return ! $this->resource->isImage($this->resource->mime_type);
                 })
-                ->displayUsing(function(){
+                ->displayUsing(function () {
                     return 'View File';
                 }),
             Image::make('File', 'location')
