@@ -9,6 +9,7 @@ use Creode\MimeTypeAssetField\MimeTypeAssetField;
 use DigitalCreative\Filepond\Filepond;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\FormData;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\URL;
@@ -93,9 +94,21 @@ class AssetResource extends Resource
                     return route('asset.generateThumbnail', ['asset' => $this->resource->id]);
                 })
                 ->sortable(),
-            URL::make('File', fn () => $this->url)
-                ->displayUsing(function () {
-                    return 'View File';
+            URL::make('File',
+                function ($formData) {
+                    if( $formData->location ){
+                        return $this->url;
+                    }
+                })
+                ->dependsOn('location', function ($field, $formData) {
+                    if( $formData->location ){
+                        $field->setValue('No File Found');
+                    }
+                })
+                ->displayUsing(function ($location) {
+                    if( $location ){
+                        return __('View File');
+                    }
                 }),
             DateTime::make('Created At')
                 ->onlyOnIndex()
