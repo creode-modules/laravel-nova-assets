@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\URL;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
 
@@ -92,6 +93,21 @@ class AssetResource extends Resource
                     return route('asset.generateThumbnail', ['asset' => $this->resource->id]);
                 })
                 ->sortable(),
+            URL::make('File',
+                function ($formData) {
+                    if (! $formData->location) {
+                        return '';
+                    }
+
+                    return $this->url;
+                })
+                ->displayUsing(function ($location) {
+                    if (! $location) {
+                        return '';
+                    }
+
+                    return __('View File');
+                }),
             DateTime::make('Created At')
                 ->onlyOnIndex()
                 ->sortable(),
