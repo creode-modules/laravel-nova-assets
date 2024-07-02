@@ -5,6 +5,7 @@ namespace Creode\LaravelNovaAssets\Nova;
 use Creode\LaravelAssets\Models\Asset;
 use Creode\LaravelNovaAssets\Events\DefineAssetActionsEvent;
 use Creode\LaravelNovaAssets\Events\DefineAssetFieldsEvent;
+use Creode\LaravelNovaAssets\Nova\Actions\BulkAssetUploadAction;
 use Creode\MimeTypeAssetField\MimeTypeAssetField;
 use DigitalCreative\Filepond\Filepond;
 use Illuminate\Database\Eloquent\Model;
@@ -157,8 +158,16 @@ class AssetResource extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        // Trigger an event for adding fields.
-        $event = new DefineAssetActionsEvent(config('nova-assets.default_actions', []));
+        // Trigger an event for adding actions.
+        $event = new DefineAssetActionsEvent();
+
+        $event->actions[] = BulkAssetUploadAction::make()
+            ->standalone()
+            ->confirmButtonText('Upload')
+            ->confirmText('Are you sure you want to upload these assets?')
+            ->cancelButtonText('Cancel')
+            ->onlyOnIndex();
+
         event($event);
 
         return $event->actions;

@@ -11,9 +11,7 @@ class ThumbnailController
     /**
      * Constructor for class.
      */
-    public function __construct(protected AssetService $assetService)
-    {
-    }
+    public function __construct(protected AssetService $assetService) {}
 
     /**
      * Single function used to generate asset thumbnails.

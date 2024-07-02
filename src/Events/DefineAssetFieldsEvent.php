@@ -14,9 +14,7 @@ class DefineAssetFieldsEvent
      *
      * @param  Field[]  $fields
      */
-    public function __construct(public array $fields = [])
-    {
-    }
+    public function __construct(public array $fields = []) {}
 
     /**
      * Allows you to add a field to the array after a specific one.
