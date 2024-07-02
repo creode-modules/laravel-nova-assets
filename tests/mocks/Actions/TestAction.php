@@ -24,9 +24,7 @@ class TestAction extends Action
      * @param  \Illuminate\Support\Collection  $models
      * @return mixed
      */
-    public function handle()
-    {
-    }
+    public function handle() {}
 
     /**
      * Get the fields available on the action.

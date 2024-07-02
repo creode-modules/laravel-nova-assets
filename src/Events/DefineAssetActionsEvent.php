@@ -14,7 +14,5 @@ class DefineAssetActionsEvent
      *
      * @param  Action[]  $actions
      */
-    public function __construct(public array $actions = [])
-    {
-    }
+    public function __construct(public array $actions = []) {}
 }
