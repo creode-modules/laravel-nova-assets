@@ -24,30 +24,9 @@ php artisan vendor:publish --tag="nova-assets-config"
 This is the contents of the published config file:
 
 ```php
-use Creode\LaravelNovaAssets\Nova\Actions\BulkAssetUploadAction;
 
 // config for Creode/LaravelNovaAssets
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Default Actions
-    |--------------------------------------------------------------------------
-    |
-    | This value contains the default actions which will be used when we managing
-    | an asset resource. You can add or remove actions as you wish.
-    |
-    */
-
-    'default_actions' => [
-        BulkAssetUploadAction::make()
-            ->standalone()
-            ->confirmButtonText('Upload')
-            ->confirmText('Are you sure you want to upload these assets?')
-            ->cancelButtonText('Cancel')
-            ->onlyOnIndex(),
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Default Upload Accepted Mime Types
