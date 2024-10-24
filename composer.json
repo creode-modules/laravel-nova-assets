@@ -27,14 +27,14 @@
         "creode/nova-mime-asset-icon-field": "^1.0",
         "creode/permissions-seeder": "^1.0",
         "digital-creative/nova-filepond": "^1.0.3",
-        "illuminate/contracts": "^10.0",
+        "illuminate/contracts": "^10.0 | ^11.0",
         "intervention/image": "^3.0",
         "laravel/nova": "^4.27",
         "spatie/laravel-package-tools": "^1.14.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
-        "nunomaduro/collision": "^7.8",
+        "nunomaduro/collision": "^7.8 | ^8.1",
         "orchestra/canvas": "^8.11",
         "orchestra/testbench": "^8.8",
         "pestphp/pest": "^2.20",
