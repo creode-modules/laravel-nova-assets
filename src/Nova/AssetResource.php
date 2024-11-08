@@ -159,7 +159,7 @@ class AssetResource extends Resource
     public function actions(NovaRequest $request)
     {
         // Trigger an event for adding actions.
-        $event = new DefineAssetActionsEvent();
+        $event = new DefineAssetActionsEvent;
 
         $event->actions[] = BulkAssetUploadAction::make()
             ->standalone()
