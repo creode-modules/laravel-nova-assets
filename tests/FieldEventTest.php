@@ -12,8 +12,8 @@ it('allows fields to be added to nova', function () {
         $event->fields[] = Text::make('Folder', 'folder_id');
     });
 
-    $resource = new AssetResource(new Asset());
-    $fields = $resource->fields(new NovaRequest());
+    $resource = new AssetResource(new Asset);
+    $fields = $resource->fields(new NovaRequest);
 
     expect(
         collect($fields)->pluck('attribute')

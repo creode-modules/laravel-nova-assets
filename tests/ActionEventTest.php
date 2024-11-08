@@ -12,8 +12,8 @@ it('allows actions to be added to nova', function () {
         $event->actions[] = TestAction::make();
     });
 
-    $resource = new AssetResource(new Asset());
-    $actions = $resource->actions(new NovaRequest());
+    $resource = new AssetResource(new Asset);
+    $actions = $resource->actions(new NovaRequest);
     expect(
         collect($actions)->pluck('name')
     )->toContain('Test Action');

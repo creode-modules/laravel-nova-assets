@@ -82,14 +82,14 @@ class AssetService
     /**
      * Converts an asset into a thumbnail.
      */
-    public function generateThumbnail(Asset $asset): EncodedImageInterface
+    public function generateThumbnail(Asset $asset): string
     {
         // Build a cache for the image.
         $cacheKey = 'image-optimiser-'.md5($asset->url.'250x250');
 
         // If the image is not in the cache, generate it.
         if (! $image = Cache::get($cacheKey)) {
-            $image = $this->processImage($asset);
+            $image = (string) $this->processImage($asset);
 
             $oneWeekInMinutes = 60 * 24 * 7;
             Cache::put($cacheKey, $image, $oneWeekInMinutes);
