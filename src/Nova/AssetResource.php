@@ -60,7 +60,7 @@ class AssetResource extends Resource
     {
         $defaultFields = [
             Text::make('Name')
-                ->onlyOnIndex()
+                ->readonly()
                 ->sortable(),
             Filepond::make('Assets', 'location', config('assets.disk', 'public'))
                 ->rules('required')
